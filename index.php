@@ -8,9 +8,10 @@ and open the template in the editor.
     <head>
         <meta charset="UTF-8">
         <script src="./javascript/jquery.min.js"> </script>
-        <title>To Do Application</title>
+        <title></title>
     </head>
     <body>
+
         <div id="view"></div>
         
         <?php
@@ -31,51 +32,64 @@ and open the template in the editor.
         id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY, 
         task VARCHAR(140) DEFAULT NULL
         )";
-                
-        ?>
-        
-        
-        <input id=textbox1 type="text" name="TextBox" >
-        
-        <form name="View">
-        <input id="viewButton" type="button" value="Click here to view table">
-        </form>
 
-        <input id ="delete" type="button" value ="Deletes a task"/>
-        <input id ="add" type="button" value ="Adds a task"/>
+        echo '<input id=textbox1 type="text" name="TextBox" >';
         
-        <p>To view the table, click on the corresponding button to view table.</p>
+        echo '<form name="View">';
+        echo '<input id="send" type="button" value="Click here to view table">';
+        echo '</form>';
+        ?>
+
+        <input id="delete" type="button" value="Delete a task" />
+        
+        <input id="add" type="button" value="Add a task" />
+        
+        <p>To view the table, click on the corresponding table.</p>
         <p>To add a task, enter the task name.</p>
         <p>To delete a task, input the task number.</p>
+        
 
-        <script>
-        //handler for the view button
-        $('#viewButton').click(function(){
-            $.ajax({
-            url:'HandlingAjax.php?view=true',
-            type:'GET',
-            success:function(data)
-            {
-                $('#view').empty();
-                $('#view').append(data);
-            }
-            });
+    <script>
+    $('#send').click(function(){
+        $.ajax({
+        url:'handleAjax.php?view=true',
+        type:'GET',
+        success:function(data)
+        {
+            $('#view').empty();
+            $('#view').append(data);
+        }
         });
-        </script>
-
-        <script>
-        $('#add').click(function(){
-            $.ajax({
-            url:'handleAjax.php?add=' + $('#textbox1').val(),
-            type:'GET',
-            success:function(data)
-            {
-                $('#view').empty();
-                $('#view').append(data);
-            }
-            });
+    });
+    </script>
+   
+    <script>
+    $('#add').click(function(){
+        $.ajax({
+        url:'handleAjax.php?add=' + $('#textbox1').val(),
+        type:'GET',
+        success:function(data)
+        {
+            $('#view').empty();
+            $('#view').append(data);
+        }
         });
+    });
     </script>
 
+    <script>
+    $('#delete').click(function(){
+        $.ajax({
+        url:'handleAjax.php?delete=' + $('#textbox1').val(),
+        type:'GET',
+        success:function(data)
+        {
+            $('#view').empty();
+            $('#view').append(data);
+        }
+        });
+    });
+    </script>
+    
     </body>
 </html>

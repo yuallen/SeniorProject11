@@ -31,8 +31,36 @@ and open the template in the editor.
         id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY, 
         task VARCHAR(140) DEFAULT NULL
         )";
-                
         ?>
+        
+        
+        <input id=textbox1 type="text" name="TextBox" >
+        
+        <form name="View">
+        <input id="viewButton" type="button" value="Click here to view table">
+        </form>
+
+        <input id ="delete" type="button" value ="Deletes a task"/>
+        <input id ="add" type="button" value ="Adds a task"/>
+        
+        <p>To view the table, click on the corresponding button to view table.</p>
+        <p>To add a task, enter the task name.</p>
+        <p>To delete a task, input the task number.</p>
+
+        <script>
+        //handler for the view button
+        $('#viewButton').click(function(){
+            $.ajax({
+            url:'HandlingAjax.php?view=true',
+            type:'GET',
+            success:function(data)
+            {
+                $('#view').empty();
+                $('#view').append(data);
+            }
+            });
+        });
+        </script>
 
     </body>
 </html>

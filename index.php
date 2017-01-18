@@ -8,39 +8,43 @@ and open the template in the editor.
     <head>
         <meta charset="UTF-8">
         <script src="./javascript/jquery.min.js"> </script>
-        <title></title>
+        <title>To Do Application</title>
     </head>
     <body>
 
-        <div id="views"></div>
+        <div id="view"></div>
         
         <?php
+        
+        //If you are looking to run this on your desktop,
+        //you will have to change the username/password/database name 
+        //to what you have set for your mySQL
         $servername = "localhost";
         $username = "yuallen";
         $password = "password";
         $dbname = "tasks";
 
         // Create connection, included database name to create the table
-        $conn = new mysqli($servername, $username, $password, $dbname);
-        // Check connection
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
+        $connect = new mysqli($servername, $username, $password, $dbname);
+        // Check connection, if connection fails, prints error message within
+        //the webpage
+        if ($connect->connect_error) {
+            die("Connection failed: " . $connect->connect_error);
         } 
 
-        //SQL Create the table
-        $sql = "CREATE TABLE todo (
-        id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY, 
-        task VARCHAR(140) DEFAULT NULL
-        )";
-if ($conn->query($sql) === TRUE) {
-    echo "Table MyGuests created successfully";
-} else {
-    echo "Error creating table: " . $conn->error;
-}
+        //Creating the table, so the user does not have to do it on their own.
+        //Originally created the table within mySQL command line to test
+        //View tasks button
+        $sql = "CREATE TABLE todo (id INT(11) NOT NULL AUTO_INCREMENT 
+        PRIMARY KEY, task VARCHAR(140) DEFAULT NULL)";
+        
+        //Testing to see if creating a button will work with php as well as
+        //in html format.
+        //Result: Same thing, just more typing if creating within php tags.
         echo '<input id=textbox1 type="text" name="TextBox" >';
         
         echo '<form name="View">';
-        echo '<input id="sending" type="button" value="Click here to view table">';
+        echo '<input id="sends" type="button" value="Click here to view table">';
         echo '</form>';
         ?>
 
@@ -54,36 +58,21 @@ if ($conn->query($sql) === TRUE) {
         
 
     <script>
-    $('#sending').click(function(){
+        $('#sends').click(function(){
         $.ajax({
-        url:'handleAjax.php?send=true',
+        url:'handleAjax.php?view=true',
         type:'GET',
         success:function(data)
         {
-            $('#views').empty();
-            $('#views').append(data);
-        }
-        });
-        
-    });
-    </script>
-   
-    <script>
-    $('#add').click(function(){
-        $.ajax({
-        url:'handleAjax.php?add=' + $('#textbox1').val(),
-        type:'GET',
-        success:function(data)
-        {
-            $('#views').empty();
-            $('#views').append(data);
+            $('#view').empty();
+            $('#view').append(data);
         }
         });
     });
     </script>
-
+    
     <script>
-    $('#delete').click(function(){
+        $('#delete').click(function(){
         $.ajax({
         url:'handleAjax.php?delete=' + $('#textbox1').val(),
         type:'GET',
@@ -95,6 +84,20 @@ if ($conn->query($sql) === TRUE) {
         });
     });
     </script>
-    
+
+    <script>
+        $('#add').click(function(){
+        $.ajax({
+        url:'handleAjax.php?add=' + $('#textbox1').val(),
+        type:'GET',
+        success:function(data)
+        {
+            $('#view').empty();
+            $('#view').append(data);
+        }
+        });
+    });
+    </script>
+
     </body>
 </html>

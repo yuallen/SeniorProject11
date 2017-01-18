@@ -50,6 +50,7 @@ function addTask($var) {
     }
     
     $selectTasks = $connect->query("INSERT INTO tasks.todo (task) VALUES ('$var');");
+    viewTask();
     echo "Adding Successful";
 }
 
@@ -63,6 +64,7 @@ function deleteTask($var) {
     }
     
     $selectTasks = $connect->query("DELETE FROM tasks.todo WHERE id = $var;");
+    viewTask();
     echo "If task number exists, it has been successfully deleted.";
 }
 ?>

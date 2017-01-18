@@ -12,7 +12,7 @@ and open the template in the editor.
     </head>
     <body>
 
-        <div id="view"></div>
+        <div id="views"></div>
         
         <?php
         $servername = "localhost";
@@ -32,11 +32,15 @@ and open the template in the editor.
         id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY, 
         task VARCHAR(140) DEFAULT NULL
         )";
-
+if ($conn->query($sql) === TRUE) {
+    echo "Table MyGuests created successfully";
+} else {
+    echo "Error creating table: " . $conn->error;
+}
         echo '<input id=textbox1 type="text" name="TextBox" >';
         
         echo '<form name="View">';
-        echo '<input id="send" type="button" value="Click here to view table">';
+        echo '<input id="sending" type="button" value="Click here to view table">';
         echo '</form>';
         ?>
 
@@ -50,16 +54,17 @@ and open the template in the editor.
         
 
     <script>
-    $('#send').click(function(){
+    $('#sending').click(function(){
         $.ajax({
-        url:'handleAjax.php?view=true',
+        url:'handleAjax.php?send=true',
         type:'GET',
         success:function(data)
         {
-            $('#view').empty();
-            $('#view').append(data);
+            $('#views').empty();
+            $('#views').append(data);
         }
         });
+        
     });
     </script>
    
@@ -70,8 +75,8 @@ and open the template in the editor.
         type:'GET',
         success:function(data)
         {
-            $('#view').empty();
-            $('#view').append(data);
+            $('#views').empty();
+            $('#views').append(data);
         }
         });
     });

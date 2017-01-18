@@ -31,6 +31,7 @@ and open the template in the editor.
         id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY, 
         task VARCHAR(140) DEFAULT NULL
         )";
+                
         ?>
         
         
@@ -61,6 +62,20 @@ and open the template in the editor.
             });
         });
         </script>
+
+        <script>
+        $('#add').click(function(){
+            $.ajax({
+            url:'handleAjax.php?add=' + $('#textbox1').val(),
+            type:'GET',
+            success:function(data)
+            {
+                $('#view').empty();
+                $('#view').append(data);
+            }
+            });
+        });
+    </script>
 
     </body>
 </html>

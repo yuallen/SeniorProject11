@@ -1,21 +1,16 @@
 <?php
-
 if (isset($_GET['view'])) { 
     viewTask();
 }
-
 if (isset($_GET['add'])) { 
     $addTask = $_GET['add'];
     addTask($addTask);
 }
-
 if (isset($_GET['delete'])) { 
     $deleteID = $_GET['delete'];
     deleteTask($deleteID);
 }
-
 function viewTask() {
-
     $servername = "localhost";
     $username = "yuallen";
     $password = "password";
@@ -23,11 +18,8 @@ function viewTask() {
     if ($connect->connect_error) {
         die("Connection failed: " . $connect->connect_error);
     }
-
     $selectTasks = $connect->query("SELECT * FROM tasks.todo;");
-
     echo "<table>";
-
     while ($row = $selectTasks->fetch_assoc()) {
         $id = $row["id"];
         $var = $row["task"];
@@ -36,10 +28,8 @@ function viewTask() {
         echo "<td>$var</td>";
         echo "</tr>";
     }
-
     echo "</table>";
 }
-
 function addTask($var) {
     $servername = "localhost";
     $username = "yuallen";
@@ -53,7 +43,6 @@ function addTask($var) {
     viewTask();
     echo "Adding Successful";
 }
-
 function deleteTask($var) {
     $servername = "localhost";
     $username = "yuallen";

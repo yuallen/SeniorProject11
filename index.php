@@ -37,6 +37,9 @@ and open the template in the editor.
         //View tasks button
         $sql = "CREATE TABLE todo (id INT(11) NOT NULL AUTO_INCREMENT 
         PRIMARY KEY, task VARCHAR(140) DEFAULT NULL)";
+
+        //Needed to add this line to connect to the db
+        $connect->query($sql);
         
         //Testing to see if creating a button will work with php as well as
         //in html format.
